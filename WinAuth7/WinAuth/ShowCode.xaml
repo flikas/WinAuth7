@@ -1,0 +1,83 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="WinAuth.ShowCode"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    mc:Ignorable="d"
+    shell:SystemTray.IsVisible="True">
+
+    <!--LayoutRoot 是包含所有页面内容的根网格-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--TitlePanel 包含应用程序的名称和页标题-->
+        <StackPanel Grid.Row="0" Margin="12,17,0,28">
+            <TextBlock Text="战网安全令" Style="{StaticResource PhoneTextNormalStyle}"/>
+            <TextBlock Text="安全码" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+        </StackPanel>
+
+        <!--ContentPanel - 在此处放置其他内容-->
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" MinWidth="68"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Border BorderBrush="Yellow" Width="20" Grid.Row="0" Grid.Column="0" Margin="0,75,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="52">
+                <TextBlock Text="{Binding Serial}" Margin="22.435,-55.731,-473.863,55.731" RenderTransformOrigin="0,0" FontSize="{StaticResource PhoneFontSizeExtraLarge}" UseLayoutRounding="False" d:LayoutRounding="Auto">
+                    <TextBlock.RenderTransform>
+                        <CompositeTransform Rotation="90" TranslateX="30" />
+                    </TextBlock.RenderTransform>
+                </TextBlock>
+            </Border>
+            <TextBlock Text="无论如何，请牢记本安全令的序列号和恢复码，以便在你丢失手机，或删除此安全令后依然可以恢复此序列号的安全令！！"
+                       Grid.Column="1" Grid.Row="0" 
+                       HorizontalAlignment="Center" 
+                       TextWrapping="Wrap" FontSize="{StaticResource PhoneFontSizeMedium}" />
+            <StackPanel Grid.Column="1" Grid.Row="1">
+                <TextBlock Text="{Binding Counter}" HorizontalAlignment="Center" FontSize="{StaticResource PhoneFontSizeExtraExtraLarge}" />
+                <ProgressBar Background="{x:Null}" IsIndeterminate="{Binding IsSyncing}"/>
+            </StackPanel>
+            <StackPanel Grid.Column="1" Grid.Row="2">
+                <TextBlock Text="验证码" Foreground="{StaticResource PhoneSubtleBrush}"/>
+                <Border Background="{StaticResource PhoneAccentBrush}">
+                    <TextBlock Text="{Binding Code}" HorizontalAlignment="Center" FontSize="{StaticResource PhoneFontSizeExtraExtraLarge}" />
+                </Border>
+                <Controls:Separator/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" Grid.Row="3">
+                <TextBlock Text="恢复码" Foreground="{StaticResource PhoneSubtleBrush}"/>
+                <Border Background="{StaticResource PhoneAccentBrush}">
+                    <TextBlock Text="{Binding RestoreCode}" HorizontalAlignment="Center" FontSize="{StaticResource PhoneFontSizeExtraLarge}" />
+                </Border>
+                <Controls:Separator/>
+            </StackPanel>
+
+            <TextBlock Text="暴雪，网易以及本作者在任何时候都不会询问您的恢复密码！"
+                       Grid.Column="1" Grid.Row="4" 
+                       HorizontalAlignment="Center" 
+                       TextWrapping="Wrap" FontSize="{StaticResource PhoneFontSizeMedium}" />
+
+
+        </Grid>
+    </Grid>
+
+</phone:PhoneApplicationPage>

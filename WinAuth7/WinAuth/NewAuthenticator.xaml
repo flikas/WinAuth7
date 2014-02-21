@@ -1,0 +1,87 @@
+﻿<phone:PhoneApplicationPage xmlns:Controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit" 
+    x:Class="WinAuth.NewAuthenticator"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait"  Orientation="Portrait"
+    shell:SystemTray.IsVisible="True">
+    <phone:PhoneApplicationPage.Resources>
+        <DataTemplate x:Key="DataTemplateRegions">
+            <Grid>
+                <TextBlock Text="{Binding Name}"/>
+            </Grid>
+        </DataTemplate>
+    </phone:PhoneApplicationPage.Resources>
+
+    <!--LayoutRoot 是包含所有页面内容的根网格-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <!--枢轴控件-->
+        <phone:Pivot Title="战网安全令" SelectionChanged="Pivot_SelectionChanged_1" >
+            <!--枢轴项一-->
+            <phone:PivotItem Header="注册">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition  Height="auto"/>
+                        <RowDefinition  Height="auto"/>
+                        <RowDefinition  Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="请根据你所游戏的战网服务区域选择正确的地区，用以创建与服务器相对应的安全令"
+                               Grid.Row="0" Margin="12,0,0,0" 
+                               TextWrapping="Wrap" FontSize="{StaticResource PhoneFontSizeLarge}"/>
+                    <Controls:ListPicker Grid.Row="1" ItemsSource="{Binding BattleNetRegions}" 
+                                         SelectedItem="{Binding SelectedRegion, Mode=TwoWay}" 
+                                         ItemTemplate="{StaticResource DataTemplateRegions}">
+                        <Controls:ListPicker.Header>
+                            <TextBlock Text="选择战网区域" />
+                        </Controls:ListPicker.Header>
+                    </Controls:ListPicker>
+                    <Controls:PhoneTextBox Grid.Row="2" 
+                                           Hint="输入备注信息" 
+                                           MaxLength="20" 
+                                           LengthIndicatorVisible="True" 
+                                           Text="{Binding Description,Mode=TwoWay}" />
+                    <ProgressBar Grid.Row="3" IsIndeterminate="{Binding IsEnrolling}"/>
+                </Grid>
+            </phone:PivotItem>
+
+            <!--枢轴项二-->
+            <phone:PivotItem Header="还原">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0">
+                        <Controls:PhoneTextBox Hint="输入序列号" Text="{Binding Serial, Mode=TwoWay}"/>
+                        <Controls:Separator/>
+                        <Controls:PhoneTextBox Hint="输入恢复码" Text="{Binding RestoreCode, Mode=TwoWay}"/>
+                        <Controls:Separator/>
+                    </StackPanel>
+                    <Controls:PhoneTextBox Grid.Row="1" 
+                                           Hint="输入备注信息" 
+                                           MaxLength="20" 
+                                           LengthIndicatorVisible="True" 
+                                           Text="{Binding Description,Mode=TwoWay}" />
+                    <StackPanel Grid.Row="2">
+                        <TextBlock Text="请输入你需要还原的安全令的密码，恢复码。还原操作需要网络连接,如果你的原手机已经丢失，强烈建议还原后解绑，重新注册新的安全令并绑定。"
+                               Grid.Row="0" Margin="12,0,0,0" 
+                               TextWrapping="Wrap" FontSize="{StaticResource PhoneFontSizeLarge}"/>
+                        <ProgressBar Grid.Row="3" Background="{x:Null}" IsIndeterminate="{Binding IsRestoring}"/>
+                    </StackPanel>
+
+                </Grid>
+            </phone:PivotItem>
+        </phone:Pivot>
+    </Grid>
+    
+</phone:PhoneApplicationPage>

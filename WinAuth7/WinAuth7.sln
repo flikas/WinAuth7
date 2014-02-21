@@ -1,7 +1,44 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinAuth", "WinAuth\WinAuth.csproj", "{ECE5B8A6-7B2D-47C0-B511-BE5F5C40355B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authenticatior", "Authenticatior\Authenticatior.csproj", "{8B78C71D-35A5-41A0-A5E0-EB7ED45B8A16}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{45D82A0D-6AE9-40D7-8C06-2655E0513BC9}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BouncyCastle", "BouncyCastle\BouncyCastle.csproj", "{84D80C6F-D084-471E-8C38-D81C531E90C7}"
+EndProject
 Global
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ECE5B8A6-7B2D-47C0-B511-BE5F5C40355B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECE5B8A6-7B2D-47C0-B511-BE5F5C40355B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECE5B8A6-7B2D-47C0-B511-BE5F5C40355B}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{ECE5B8A6-7B2D-47C0-B511-BE5F5C40355B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECE5B8A6-7B2D-47C0-B511-BE5F5C40355B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ECE5B8A6-7B2D-47C0-B511-BE5F5C40355B}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{8B78C71D-35A5-41A0-A5E0-EB7ED45B8A16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B78C71D-35A5-41A0-A5E0-EB7ED45B8A16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B78C71D-35A5-41A0-A5E0-EB7ED45B8A16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B78C71D-35A5-41A0-A5E0-EB7ED45B8A16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84D80C6F-D084-471E-8C38-D81C531E90C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84D80C6F-D084-471E-8C38-D81C531E90C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84D80C6F-D084-471E-8C38-D81C531E90C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84D80C6F-D084-471E-8C38-D81C531E90C7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
