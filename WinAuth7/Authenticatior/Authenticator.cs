@@ -461,12 +461,12 @@ namespace WindowsPhoneAuthenticator
 			// call the enroll server
 			HttpWebRequest request = (HttpWebRequest)WebRequest.Create(GetMobileUrl(countryCode) + ENROLL_PATH);
 			request.AllowReadStreamBuffering = true;
-			request.AllowWriteStreamBuffering = true;
+            //request.AllowWriteStreamBuffering = true;
 			request.AllowReadStreamBuffering = true;
-			request.AllowWriteStreamBuffering = true;
+            //request.AllowWriteStreamBuffering = true;
 			request.Method = "POST";
 			request.ContentType = "application/octet-stream";
-			request.ContentLength = encrypted.Length;
+            //request.ContentLength = encrypted.Length;
 			Stream requestStream = await request.GetRequestStreamAsync();
 			requestStream.Write(encrypted, 0, encrypted.Length);
 			requestStream.Close();
@@ -548,7 +548,7 @@ namespace WindowsPhoneAuthenticator
 				// OK?
 				if (response.StatusCode != HttpStatusCode.OK)
 				{
-					throw new ApplicationException(string.Format("{0}: {1}", (int)response.StatusCode, response.StatusDescription));
+					throw new Exception(string.Format("{0}: {1}", (int)response.StatusCode, response.StatusDescription));
 				}
 
 				// load back the buffer - should only be a byte[8]
@@ -603,7 +603,7 @@ namespace WindowsPhoneAuthenticator
 			HttpWebRequest request = (HttpWebRequest)WebRequest.Create(GetMobileUrl(serial) + RESTORE_PATH);
 			request.Method = "POST";
 			request.ContentType = "application/octet-stream";
-			request.ContentLength = serialBytes.Length;
+            //request.ContentLength = serialBytes.Length;
 			Stream requestStream = await request.GetRequestStreamAsync();
 			requestStream.Write(serialBytes, 0, serialBytes.Length);
 			requestStream.Close();
@@ -693,7 +693,7 @@ namespace WindowsPhoneAuthenticator
 			request = (HttpWebRequest)WebRequest.Create(GetMobileUrl(serial) + RESTOREVALIDATE_PATH);
 			request.Method = "POST";
 			request.ContentType = "application/octet-stream";
-			request.ContentLength = postbytes.Length;
+            //request.ContentLength = postbytes.Length;
 			requestStream = await request.GetRequestStreamAsync();
 			requestStream.Write(postbytes, 0, postbytes.Length);
 			requestStream.Close();
