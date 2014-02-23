@@ -107,6 +107,7 @@
     <None Include="Properties\WMAppManifest.xml">
       <SubType>Designer</SubType>
     </None>
+    <None Include="WinAuth_2014_02_24_00_22_27.sap" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="App.xaml">
@@ -136,6 +137,12 @@
     <EmbeddedResource Include="Resources\AppResources.resx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="1.png" />
+    <Content Include="2.png" />
+    <Content Include="3.png" />
+    <Content Include="4.png" />
+    <Content Include="appicon.png" />
+    <Content Include="appicon1.png" />
     <Content Include="Assets\AppBar\add.png" />
     <Content Include="Assets\AppBar\AlignmentGrid.png" />
     <Content Include="Assets\AppBar\delete.png" />
