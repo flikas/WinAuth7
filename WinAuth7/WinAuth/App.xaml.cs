@@ -184,8 +184,8 @@ namespace WinAuth
         {
             // 如果应用程序收到“重置”导航，则需要进行检查
             // 以确定是否应重置页面堆栈
-            if (e.NavigationMode == NavigationMode.Reset)
-                RootFrame.Navigated += ClearBackStackAfterReset;
+            //if (e.NavigationMode == NavigationMode.Reset)
+            //    RootFrame.Navigated += ClearBackStackAfterReset;
         }
 
         private void ClearBackStackAfterReset(object sender, NavigationEventArgs e)
@@ -243,7 +243,7 @@ namespace WinAuth
                 //
                 // 如果命中编译器错误，则表示以下对象中缺少 ResourceFlowDirection
                 // 资源文件。
-                FlowDirection flow = (FlowDirection)Enum.Parse(typeof(FlowDirection), AppResources.ResourceFlowDirection);
+                FlowDirection flow = (FlowDirection)Enum.Parse(typeof(FlowDirection), AppResources.ResourceFlowDirection, true);
                 RootFrame.FlowDirection = flow;
             }
             catch

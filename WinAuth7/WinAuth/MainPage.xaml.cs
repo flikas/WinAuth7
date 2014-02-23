@@ -57,12 +57,12 @@ namespace WinAuth
             appBarButton.Text = "添加";
             appBarButton.Click += appBarButton_Click;
 
-            ApplicationBarIconButton appSelectButton = new ApplicationBarIconButton(new Uri("/Assets/AppBar/select.png", UriKind.Relative));
-            appSelectButton.Text = "选择";
-            appSelectButton.Click += appBarSelectButton_Click;
+            //ApplicationBarIconButton appSelectButton = new ApplicationBarIconButton(new Uri("/Assets/AppBar/select.png", UriKind.Relative));
+            //appSelectButton.Text = "选择";
+            //appSelectButton.Click += appBarSelectButton_Click;
 
             ApplicationBar.Buttons.Add(appBarButton);
-            ApplicationBar.Buttons.Add(appSelectButton);
+            //ApplicationBar.Buttons.Add(appSelectButton);
 
             // 使用 AppResources 中的本地化字符串创建新菜单项。
            // ApplicationBarMenuItem appBarMenuItem = new ApplicationBarMenuItem(AppResources.AppBarMenuItemText);
@@ -114,10 +114,10 @@ namespace WinAuth
             NavigationService.Navigate(new Uri("/NewAuthenticator.xaml", UriKind.Relative));
         }
 
-        void appBarSelectButton_Click(object sender, EventArgs e)
-        {
-            this.ListAuth.IsSelectionEnabled = true;
-        }
+        //void appBarSelectButton_Click(object sender, EventArgs e)
+        //{
+        //    this.ListAuth.IsSelectionEnabled = true;
+        //}
 
          //导航页面以将数据上下文设置为列表中的所选项时
         protected override async void OnNavigatedTo(NavigationEventArgs e)
@@ -129,24 +129,24 @@ namespace WinAuth
 
         }
 
-        private void LongListMultiSelector_IsSelectionEnabledChanged_1(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            LongListMultiSelector llist = sender as LongListMultiSelector;
-            ClearApplicationBar();
-            if (llist.IsSelectionEnabled)
-            {
-                SetupSelectApplicationBar();
-            }
-            else
-            {
-                SetupCreateApplicationBar();
-            }
+        //private void LongListMultiSelector_IsSelectionEnabledChanged_1(object sender, DependencyPropertyChangedEventArgs e)
+        //{
+        //    LongListMultiSelector llist = sender as LongListMultiSelector;
+        //    ClearApplicationBar();
+        //    if (llist.IsSelectionEnabled)
+        //    {
+        //        SetupSelectApplicationBar();
+        //    }
+        //    else
+        //    {
+        //        SetupCreateApplicationBar();
+        //    }
 
-        }
+        //}
 
         private void ListAuth_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-           LongListMultiSelector llist = sender as LongListMultiSelector;
+           ListBox llist = sender as ListBox;
            if (llist.SelectedItems.Count > 0)
                deleteBar.IsEnabled = true;
            else
@@ -155,11 +155,11 @@ namespace WinAuth
 
         protected override void OnBackKeyPress(CancelEventArgs e)
         {
-            if (this.ListAuth.IsSelectionEnabled == true)
-            {
-                this.ListAuth.IsSelectionEnabled = false;
-                e.Cancel = true;
-            }
+            //if (this.ListAuth.IsSelectionEnabled == true)
+            //{
+            //    this.ListAuth.IsSelectionEnabled = false;
+            //    e.Cancel = true;
+            //}
         }
 
         private void Grid_Tap_1(object sender, System.Windows.Input.GestureEventArgs e)
