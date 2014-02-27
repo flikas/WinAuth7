@@ -30,20 +30,22 @@ namespace WinAuth.ViewModels
     public class ShowCodeViewModel : INotifyPropertyChanged
     {
         private Timer timer;
-        private string lastCode ="";
+        private string lastCode = "";
         private int counter;
         private String restoreCode;
         private String serial;
         private DateTime NextRefresh;
         private Boolean isSyncing = false;
-        public  ShowCodeViewModel()
+
+
+        public ShowCodeViewModel()
         {
             lastCode = App.CurrentAuthenticator.CurrentCode;
-            counter = (int)((App.CurrentAuthenticator.ServerTime % 30000L) / 1000L);
+            counter = (int)((App.CurrentAuthenticator.ServerTime % 30000L) / 100L);
             restoreCode = App.CurrentAuthenticator.RestoreCode;
             serial = App.CurrentAuthenticator.Serial;
             NextRefresh = DateTime.Now;
-            timer = new Timer(MyTimerCallback, App.CurrentAuthenticator, 0, 500);
+            timer = new Timer(MyTimerCallback, App.CurrentAuthenticator, 0, 50);
         }
         public String Serial
         {
@@ -71,9 +73,10 @@ namespace WinAuth.ViewModels
         {
             get
             {
-                return 30 - counter;
+                return counter;
             }
         }
+
 
         public Boolean IsSyncing
         {
@@ -87,12 +90,12 @@ namespace WinAuth.ViewModels
                 NotifyPropertyChanged("IsSyncing");
             }
         }
-        
+
 
         private void MyTimerCallback(object state)
         {
             Authenticator au = state as Authenticator;
-            counter = (int)((au.ServerTime % 30000L) / 1000L);
+            counter = (int)((au.ServerTime % 30000L) / 100L);
             DateTime now = DateTime.Now;
             if (counter == 0)
             {
@@ -119,7 +122,7 @@ namespace WinAuth.ViewModels
 
         }
 
-        public async Task  SyncCode()
+        public async Task SyncCode()
         {
             IsSyncing = true;
             try

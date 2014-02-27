@@ -302,7 +302,7 @@ namespace WindowsPhoneAuthenticator
 		/// Get/set the data saved for the secret data value
 		/// </summary>
 		[DataMember]
-		protected string SecretData
+		public string SecretData
 		{
 			get
 			{
@@ -380,7 +380,7 @@ namespace WindowsPhoneAuthenticator
 		public String Description
 		{
 			get;
-			private set;
+			set;
 		}
 
 		#endregion

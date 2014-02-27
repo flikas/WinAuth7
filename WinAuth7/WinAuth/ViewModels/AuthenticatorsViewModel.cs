@@ -95,7 +95,7 @@ namespace WinAuth.ViewModels
         public async Task LoadData()
         {
             Authenticators.Clear();
-            
+
             //StorageFolder local = Windows.Storage.ApplicationData.Current.LocalFolder;
             IsolatedStorageFile local = IsolatedStorageFile.GetUserStoreForApplication();
             //var AuthenticatorsStorageFolde = await local.CreateFolderAsync(AuthenticatorsStorageFolderName, CreationCollisionOption.OpenIfExists);
@@ -106,9 +106,9 @@ namespace WinAuth.ViewModels
             await Task.Factory.StartNew(() =>
             {
                 //foreach (StorageFile file in AuthenticatorFiles)
-                foreach (string file in local.GetFileNames(Path.Combine(AuthenticatorsStorageFolderName,"*")))
+                foreach (string file in local.GetFileNames(AuthenticatorsStorageFolderName + "/*"))
                 {
-                    using (Stream stream = new IsolatedStorageFileStream(file, FileMode.Open, local))
+                    using (Stream stream = new IsolatedStorageFileStream(AuthenticatorsStorageFolderName + "/" + file, FileMode.Open, local))
                     {
                         Authenticator au = Authenticator.GetFromJSonStream(stream);
                         if (au != null)
@@ -152,7 +152,7 @@ namespace WinAuth.ViewModels
                 foreach (Authenticator au in aus)
                 {
                     //StorageFile file = await AuthenticatorsStorageFolde.CreateFileAsync(au.Serial, CreationCollisionOption.ReplaceExisting);
-                    using (Stream stream = new IsolatedStorageFileStream(au.Serial, FileMode.Create, local))
+                    using (Stream stream = new IsolatedStorageFileStream(AuthenticatorsStorageFolderName + "/" + au.Serial, FileMode.Create, local))
                     {
                         Authenticator.SetFromJSonStream(au, stream);
                     }
@@ -191,7 +191,7 @@ namespace WinAuth.ViewModels
                     //await file.DeleteAsync();
                     try
                     {
-                        local.DeleteFile(Path.Combine(AuthenticatorsStorageFolderName, au.Serial));
+                        local.DeleteFile(AuthenticatorsStorageFolderName + "/" + au.Serial);
                     }
                     catch
                     {

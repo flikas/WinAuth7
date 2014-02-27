@@ -34,15 +34,14 @@ namespace WinAuth
 {
     public partial class MainPage : PhoneApplicationPage
     {
-        private ApplicationBarIconButton deleteBar;
         // 构造函数
         public MainPage()
         {
             InitializeComponent();
 
-            this.DataContext = App.AuthenticatorsViewModel;
-          //  用于本地化 ApplicationBar 的示例代码
-          //  BuildLocalizedApplicationBar();
+            //this.DataContext = App.AuthenticatorsViewModel;
+            //  用于本地化 ApplicationBar 的示例代码
+            //  BuildLocalizedApplicationBar();
             SetupCreateApplicationBar();
         }
 
@@ -65,36 +64,22 @@ namespace WinAuth
             //ApplicationBar.Buttons.Add(appSelectButton);
 
             // 使用 AppResources 中的本地化字符串创建新菜单项。
-           // ApplicationBarMenuItem appBarMenuItem = new ApplicationBarMenuItem(AppResources.AppBarMenuItemText);
-          //  ApplicationBar.MenuItems.Add(appBarMenuItem);
-        }
-
-        private void SetupSelectApplicationBar()
-        {
-            // 将页面的 ApplicationBar 设置为 ApplicationBar 的新实例。
-            ApplicationBar = new ApplicationBar();
-
-            // 创建新按钮并将文本值设置为 AppResources 中的本地化字符串。
-            deleteBar = new ApplicationBarIconButton(new Uri("/Assets/AppBar/delete.png", UriKind.Relative));
-            deleteBar.Text = "删除";
-            deleteBar.Click += appBarDeleteButton_Click;
-            deleteBar.IsEnabled = false;
-
-            ApplicationBar.Buttons.Add(deleteBar);
-
-            // 使用 AppResources 中的本地化字符串创建新菜单项。
             // ApplicationBarMenuItem appBarMenuItem = new ApplicationBarMenuItem(AppResources.AppBarMenuItemText);
             //  ApplicationBar.MenuItems.Add(appBarMenuItem);
         }
 
-        void appBarDeleteButton_Click(object sender, EventArgs e)
-        {
-            IList source = this.ListAuth.ItemsSource as IList;
-            while (ListAuth.SelectedItems.Count > 0)
-            {
-                source.Remove(ListAuth.SelectedItems[0]);
-            }
-        }
+        //private void SetupSelectApplicationBar()
+        //{
+        //    // 将页面的 ApplicationBar 设置为 ApplicationBar 的新实例。
+        //    ApplicationBar = new ApplicationBar();
+
+
+
+        //    // 使用 AppResources 中的本地化字符串创建新菜单项。
+        //    // ApplicationBarMenuItem appBarMenuItem = new ApplicationBarMenuItem(AppResources.AppBarMenuItemText);
+        //    //  ApplicationBar.MenuItems.Add(appBarMenuItem);
+        //}
+
 
         void ClearApplicationBar()
         {
@@ -119,14 +104,15 @@ namespace WinAuth
         //    this.ListAuth.IsSelectionEnabled = true;
         //}
 
-         //导航页面以将数据上下文设置为列表中的所选项时
+        //导航页面以将数据上下文设置为列表中的所选项时
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             if (!App.AuthenticatorsViewModel.IsDataLoaded)
             {
-               await App.AuthenticatorsViewModel.LoadData();
+                this.DataContext = null;
+                await App.AuthenticatorsViewModel.LoadData();
+                this.DataContext = App.AuthenticatorsViewModel;
             }
-
         }
 
         //private void LongListMultiSelector_IsSelectionEnabledChanged_1(object sender, DependencyPropertyChangedEventArgs e)
@@ -144,14 +130,14 @@ namespace WinAuth
 
         //}
 
-        private void ListAuth_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-           ListBox llist = sender as ListBox;
-           if (llist.SelectedItems.Count > 0)
-               deleteBar.IsEnabled = true;
-           else
-               deleteBar.IsEnabled = false;
-        }
+        //private void ListAuth_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //    ListBox llist = sender as ListBox;
+        //    if (llist.SelectedItems.Count > 0)
+        //        deleteBar.IsEnabled = true;
+        //    else
+        //        deleteBar.IsEnabled = false;
+        //}
 
         protected override void OnBackKeyPress(CancelEventArgs e)
         {
@@ -162,7 +148,7 @@ namespace WinAuth
             //}
         }
 
-        private void Grid_Tap_1(object sender, System.Windows.Input.GestureEventArgs e)
+        private void Grid_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             var au = ((FrameworkElement)sender).DataContext as Authenticator;
             App.CurrentAuthenticator = au;

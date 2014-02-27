@@ -107,7 +107,6 @@
     <None Include="Properties\WMAppManifest.xml">
       <SubType>Designer</SubType>
     </None>
-    <None Include="WinAuth_2014_02_24_00_22_27.sap" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="App.xaml">

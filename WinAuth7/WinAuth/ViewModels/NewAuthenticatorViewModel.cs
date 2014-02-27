@@ -27,197 +27,197 @@ using WindowsPhoneAuthenticator;
 
 namespace WinAuth.ViewModels
 {
-    /// <summary>
-		/// Inner class holding the regions information
+	/// <summary>
+	/// Inner class holding the regions information
+	/// </summary>
+	public class BattleNetRegion
+	{
+		/// <summary>
+		/// Code for region, e.g. "US"
 		/// </summary>
-   public class BattleNetRegion
-    {
-        /// <summary>
-        /// Code for region, e.g. "US"
-        /// </summary>
-       public string Code { get; private set; }
+		public string Code { get; private set; }
 
-        /// <summary>
-        /// Display name of region, e.g. "Americas"
-        /// </summary>
-       public string Name { get; private set; }
+		/// <summary>
+		/// Display name of region, e.g. "Americas"
+		/// </summary>
+		public string Name { get; private set; }
 
-        /// <summary>
-        /// Create a new BattleNetRegion object
-        /// </summary>
-        /// <param name="code">region code</param>
-        /// <param name="name">region name</param>
-        public BattleNetRegion(string code, string name)
-        {
-            Code = code;
-            Name = name;
-        }
-
-        /// <summary>
-        /// Get the display sting for the region
-        /// </summary>
-        /// <returns></returns>
-        public override string ToString()
-        {
-            return Name;
-        }
-    }
-
-    public class NewAuthenticatorViewModel : INotifyPropertyChanged
-    {
-        private String description;
-        private String serial;
-        private String restorecode;
-        private Authenticator newAuthenticator;
-        private Boolean isEnrolling;
-        private Boolean isRestoring;
-        private ObservableCollection<BattleNetRegion> regions = new ObservableCollection<BattleNetRegion>
+		/// <summary>
+		/// Create a new BattleNetRegion object
+		/// </summary>
+		/// <param name="code">region code</param>
+		/// <param name="name">region name</param>
+		public BattleNetRegion(string code, string name)
 		{
-			new BattleNetRegion("US", "美帝"),
-			new BattleNetRegion("EU", "欧萌"),
-			new BattleNetRegion("CN", "天朝"),
-			new BattleNetRegion("KR", "棒子"),
-			new BattleNetRegion("TW", "呆湾")
+			Code = code;
+			Name = name;
+		}
+
+		/// <summary>
+		/// Get the display sting for the region
+		/// </summary>
+		/// <returns></returns>
+		public override string ToString()
+		{
+			return Name;
+		}
+	}
+
+	public class NewAuthenticatorViewModel : INotifyPropertyChanged
+	{
+		private String description;
+		private String serial;
+		private String restorecode;
+		private Authenticator newAuthenticator;
+		private Boolean isEnrolling;
+		private Boolean isRestoring;
+		private ObservableCollection<BattleNetRegion> regions = new ObservableCollection<BattleNetRegion>
+		{
+			new BattleNetRegion("CN", "中国大陆"),
+			new BattleNetRegion("US", "美国"),
+			new BattleNetRegion("EU", "欧洲"),
+			new BattleNetRegion("KR", "韩国"),
+			new BattleNetRegion("TW", "台湾地区")
 		};
-        public NewAuthenticatorViewModel()
-        {
-            SelectedRegion = regions[0];
-            serial = "";
-            restorecode = "";
-            isEnrolling = false;
-            isRestoring = false;
-        }
-        public BattleNetRegion SelectedRegion { get; set; }
+		public NewAuthenticatorViewModel()
+		{
+			SelectedRegion = regions[0];
+			serial = "";
+			restorecode = "";
+			isEnrolling = false;
+			isRestoring = false;
+		}
+		public BattleNetRegion SelectedRegion { get; set; }
 
-        public Boolean IsEnrolling
-        {
-            get
-            {
-                return isEnrolling;
-            }
-            private set
-            {
-                isEnrolling = value;
-                NotifyPropertyChanged("IsEnrolling");
-            }
-        }
+		public Boolean IsEnrolling
+		{
+			get
+			{
+				return isEnrolling;
+			}
+			private set
+			{
+				isEnrolling = value;
+				NotifyPropertyChanged("IsEnrolling");
+			}
+		}
 
-        public Boolean IsRestoring
-        {
-            get
-            {
-                return isRestoring;
-            }
-            set
-            {
-                isRestoring = value;
-                NotifyPropertyChanged("IsRestoring");
-            }
-        }
+		public Boolean IsRestoring
+		{
+			get
+			{
+				return isRestoring;
+			}
+			set
+			{
+				isRestoring = value;
+				NotifyPropertyChanged("IsRestoring");
+			}
+		}
 
-        public ObservableCollection<BattleNetRegion> BattleNetRegions
-        {
-            get
-            {
-                return regions;
-            }
+		public ObservableCollection<BattleNetRegion> BattleNetRegions
+		{
+			get
+			{
+				return regions;
+			}
 
-        }
-        public String Description
-        {
-            get
-            {
-                return description;
-            }
-            set
-            {
-                description = value;
-            }
+		}
+		public String Description
+		{
+			get
+			{
+				return description;
+			}
+			set
+			{
+				description = value;
+			}
 
-        }
+		}
 
-        public String Serial
-        {
-            get
-            {
-                return serial;
-            }
-            set
-            {
-                serial = value;
-            }
-        }
+		public String Serial
+		{
+			get
+			{
+				return serial;
+			}
+			set
+			{
+				serial = value;
+			}
+		}
 
-        public String RestoreCode
-        {
-            get
-            {
-                return restorecode;
-            }
-            set
-            {
-                restorecode = value;
-            }
-        }
+		public String RestoreCode
+		{
+			get
+			{
+				return restorecode;
+			}
+			set
+			{
+				restorecode = value;
+			}
+		}
 
-        public async Task<Authenticator> EnrollAuthenticator()
-        {
-            IsEnrolling = true;
-            try
-            {
-                newAuthenticator = new Authenticator(Description);
-                string region = SelectedRegion.Code;
-                await newAuthenticator.Enroll(region);
-            }
-            catch (Exception ex)
-            {
+		public async Task<Authenticator> EnrollAuthenticator()
+		{
+			IsEnrolling = true;
+			try
+			{
+				newAuthenticator = new Authenticator(Description);
+				string region = SelectedRegion.Code;
+				await newAuthenticator.Enroll(region);
+			}
+			catch (Exception ex)
+			{
 
-                newAuthenticator = null;
-                throw ex;
-            }
-            finally
-            {
-                IsEnrolling = false;
-              
-            }
-            return newAuthenticator;
-        }
+				newAuthenticator = null;
+				throw ex;
+			}
+			finally
+			{
+				IsEnrolling = false;
 
-        public async Task<Authenticator> RestoreAuthenticator()
-        {
-            if (Serial == String.Empty || RestoreCode == String.Empty)
-            {
-                newAuthenticator = null;
-                throw new Exception("无效的序列号或还原码");
-            }
-            IsRestoring = true;
-            try
-            {
-                newAuthenticator = new Authenticator(Description);
-                
-                await newAuthenticator.Restore(Serial, RestoreCode);
-            }
-            catch (Exception ex)
-            {
+			}
+			return newAuthenticator;
+		}
 
-                newAuthenticator = null;
-                throw ex;
-            }
-            finally
-            {
-                IsRestoring = false;
-            }
-            return newAuthenticator;
-        }
+		public async Task<Authenticator> RestoreAuthenticator()
+		{
+			if (Serial == String.Empty || RestoreCode == String.Empty)
+			{
+				newAuthenticator = null;
+				throw new Exception("无效的序列号或还原码");
+			}
+			IsRestoring = true;
+			try
+			{
+				newAuthenticator = new Authenticator(Description);
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void NotifyPropertyChanged(String propertyName)
-        {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (null != handler)
-            {
-                handler(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
+				await newAuthenticator.Restore(Serial, RestoreCode);
+			}
+			catch (Exception ex)
+			{
+
+				newAuthenticator = null;
+				throw ex;
+			}
+			finally
+			{
+				IsRestoring = false;
+			}
+			return newAuthenticator;
+		}
+
+		public event PropertyChangedEventHandler PropertyChanged;
+		private void NotifyPropertyChanged(String propertyName)
+		{
+			PropertyChangedEventHandler handler = PropertyChanged;
+			if (null != handler)
+			{
+				handler(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
 }

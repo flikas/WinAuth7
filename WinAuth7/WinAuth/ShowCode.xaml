@@ -52,7 +52,8 @@
                        HorizontalAlignment="Center" 
                        TextWrapping="Wrap" FontSize="{StaticResource PhoneFontSizeMedium}" />
             <StackPanel Grid.Column="1" Grid.Row="1">
-                <TextBlock Text="{Binding Counter}" HorizontalAlignment="Center" FontSize="{StaticResource PhoneFontSizeExtraExtraLarge}" />
+                <!--<TextBlock Text="{Binding Counter}" HorizontalAlignment="Center" FontSize="{StaticResource PhoneFontSizeExtraExtraLarge}" />-->
+                <ProgressBar Value="{Binding Counter}" Maximum="300" />
                 <ProgressBar Background="{x:Null}" IsIndeterminate="{Binding IsSyncing}"/>
             </StackPanel>
             <StackPanel Grid.Column="1" Grid.Row="2">

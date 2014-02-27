@@ -16,7 +16,7 @@
 	shell:SystemTray.IsVisible="True">
 	<phone:PhoneApplicationPage.Resources>
 		<DataTemplate x:Key="DataTemplateAuthenticatorList">
-			<Grid Tap="Grid_Tap_1">
+			<Grid Tap="Grid_Tap">
 				<Grid.RowDefinitions>
 					<RowDefinition/>
 					<RowDefinition/>
@@ -68,9 +68,7 @@
 		</StackPanel>
 
 		<Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <ListBox Name="ListAuth"  ItemsSource="{Binding Authenticators}" ItemTemplate="{StaticResource DataTemplateAuthenticatorList}" SelectionChanged="ListAuth_SelectionChanged">
-
-            </ListBox>
+            <ListBox Name="ListAuth"  ItemsSource="{Binding Authenticators}" ItemTemplate="{StaticResource DataTemplateAuthenticatorList}" />
 
         </Grid>
 

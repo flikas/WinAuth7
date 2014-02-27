@@ -32,17 +32,19 @@ namespace WinAuth
     {
         private ShowCodeViewModel coderModel;
         private ApplicationBarIconButton appBarSyncButton;
+        private ApplicationBarIconButton appBarDeleteButton;
+
         public ShowCode()
         {
             InitializeComponent();
             SetupAppBar();
             coderModel = new ShowCodeViewModel();
             this.DataContext = coderModel;
-            
+
         }
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
-           // coderModel.SyncCode();
+            //coderModel.SyncCode();
         }
 
         private void SetupAppBar()
@@ -55,6 +57,12 @@ namespace WinAuth
             appBarSyncButton.Text = "同步";
             appBarSyncButton.Click += appBarSyncButton_Sync;
             ApplicationBar.Buttons.Add(appBarSyncButton);
+
+            // 创建新按钮并将文本值设置为 AppResources 中的本地化字符串。
+            appBarDeleteButton = new ApplicationBarIconButton(new Uri("/Assets/AppBar/delete.png", UriKind.Relative));
+            appBarDeleteButton.Text = "删除";
+            appBarDeleteButton.Click += appBarDeleteButton_Click;
+            ApplicationBar.Buttons.Add(appBarDeleteButton);
         }
 
         private async void appBarSyncButton_Sync(object sender, EventArgs e)
@@ -72,6 +80,12 @@ namespace WinAuth
             {
                 appBarSyncButton.IsEnabled = true;
             }
+        }
+
+        void appBarDeleteButton_Click(object sender, EventArgs e)
+        {
+            App.AuthenticatorsViewModel.Authenticators.Remove(App.CurrentAuthenticator);
+            NavigationService.GoBack();
         }
     }
 }
