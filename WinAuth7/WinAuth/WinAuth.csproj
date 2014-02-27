@@ -140,6 +140,10 @@
     <Content Include="2.png" />
     <Content Include="3.png" />
     <Content Include="4.png" />
+    <Content Include="480_1.png" />
+    <Content Include="480_2.png" />
+    <Content Include="480_3.png" />
+    <Content Include="480_4.png" />
     <Content Include="appicon.png" />
     <Content Include="appicon1.png" />
     <Content Include="Assets\AppBar\add.png" />
