@@ -36,6 +36,7 @@ namespace WinAuth.ViewModels
         private String serial;
         private DateTime NextRefresh;
         private Boolean isSyncing = false;
+        private string description;
 
 
         public ShowCodeViewModel()
@@ -44,6 +45,7 @@ namespace WinAuth.ViewModels
             counter = (int)((App.CurrentAuthenticator.ServerTime % 30000L) / 100L);
             restoreCode = App.CurrentAuthenticator.RestoreCode;
             serial = App.CurrentAuthenticator.Serial;
+            description = App.CurrentAuthenticator.Description;
             NextRefresh = DateTime.Now;
             timer = new Timer(MyTimerCallback, App.CurrentAuthenticator, 0, 50);
         }
@@ -68,7 +70,6 @@ namespace WinAuth.ViewModels
                 return lastCode;
             }
         }
-
         public int Counter
         {
             get
@@ -76,7 +77,26 @@ namespace WinAuth.ViewModels
                 return counter;
             }
         }
-
+        public string Title
+        {
+            get
+            {
+                return App.CurrentAuthenticator.Title;
+            }
+        }
+        public string Description
+        {
+            get
+            {
+                return description;
+            }
+            set
+            {
+                App.CurrentAuthenticator.Description = description = value;
+                NotifyPropertyChanged("Description");
+                NotifyPropertyChanged("Title");
+            }
+        }
 
         public Boolean IsSyncing
         {
@@ -140,6 +160,7 @@ namespace WinAuth.ViewModels
                 IsSyncing = false;
             }
         }
+
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged(String propertyName)
         {

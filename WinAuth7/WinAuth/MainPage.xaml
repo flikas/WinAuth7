@@ -21,8 +21,9 @@
 					<RowDefinition/>
 					<RowDefinition/>
 				</Grid.RowDefinitions>
-				<TextBlock Text="{Binding Serial}" Grid.Row="0" FontSize="{StaticResource PhoneFontSizeExtraLarge}"/>
-				<TextBlock Text="{Binding Description}" Grid.Row="1" FontSize="{StaticResource PhoneFontSizeLarge}" Foreground="{StaticResource PhoneSubtleBrush}"/>
+                <TextBlock Text="{Binding Title}" Grid.Row="0" FontSize="{StaticResource PhoneFontSizeExtraLarge}"/>
+				<!--<TextBlock Text="{Binding Serial}" Grid.Row="0" FontSize="{StaticResource PhoneFontSizeExtraLarge}"/>-->
+				<!--<TextBlock Text="{Binding Description}" Grid.Row="1" FontSize="{StaticResource PhoneFontSizeLarge}" Foreground="{StaticResource PhoneSubtleBrush}"/>-->
 			</Grid>
 		</DataTemplate>
 	</phone:PhoneApplicationPage.Resources>

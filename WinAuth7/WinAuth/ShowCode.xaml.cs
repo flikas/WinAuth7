@@ -25,6 +25,8 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using WinAuth.ViewModels;
+using Coding4Fun.Toolkit.Controls;
+using System.Windows.Media;
 
 namespace WinAuth
 {
@@ -33,18 +35,36 @@ namespace WinAuth
         private ShowCodeViewModel coderModel;
         private ApplicationBarIconButton appBarSyncButton;
         private ApplicationBarIconButton appBarDeleteButton;
+        private ApplicationBarMenuItem appBarModifyDescription;
+        private InputPrompt inpModifyDescription;
 
         public ShowCode()
         {
             InitializeComponent();
             SetupAppBar();
-            coderModel = new ShowCodeViewModel();
+            try
+            {
+                coderModel = new ShowCodeViewModel();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("同步安全令失败，请检查网络连接并稍后重试: " + ex.Message);
+                try
+                {
+                    NavigationService.GoBack();
+                }
+                catch { NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.RelativeOrAbsolute)); }
+            }
             this.DataContext = coderModel;
-
         }
+
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
-            //coderModel.SyncCode();
+            if (NavigationContext.QueryString.ContainsKey("IsNew") && NavigationContext.QueryString["IsNew"] == "y")
+            {
+                ShowRestoreCodeButton_Tap(null, null);
+                appBarDeleteButton.IsEnabled = false;
+            }
         }
 
         private void SetupAppBar()
@@ -58,11 +78,32 @@ namespace WinAuth
             appBarSyncButton.Click += appBarSyncButton_Sync;
             ApplicationBar.Buttons.Add(appBarSyncButton);
 
-            // 创建新按钮并将文本值设置为 AppResources 中的本地化字符串。
             appBarDeleteButton = new ApplicationBarIconButton(new Uri("/Assets/AppBar/delete.png", UriKind.Relative));
             appBarDeleteButton.Text = "删除";
             appBarDeleteButton.Click += appBarDeleteButton_Click;
             ApplicationBar.Buttons.Add(appBarDeleteButton);
+
+            appBarModifyDescription = new ApplicationBarMenuItem("修改备注名...");
+            appBarModifyDescription.Click += appBarModifyDescription_Click;
+            ApplicationBar.MenuItems.Add(appBarModifyDescription);
+        }
+
+        void appBarModifyDescription_Click(object sender, EventArgs e)
+        {
+            inpModifyDescription = new InputPrompt
+            {
+                Title = "修改备注名",
+                Message = "输入新备注名",
+                Value = App.CurrentAuthenticator.Description
+            };
+            inpModifyDescription.Completed += inp_Completed;
+            inpModifyDescription.Show();
+        }
+
+        void inp_Completed(object sender, PopUpEventArgs<string, PopUpResult> e)
+        {
+            coderModel.Description = inpModifyDescription.Value;
+            App.AuthenticatorsViewModel.SaveData();
         }
 
         private async void appBarSyncButton_Sync(object sender, EventArgs e)
@@ -84,8 +125,45 @@ namespace WinAuth
 
         void appBarDeleteButton_Click(object sender, EventArgs e)
         {
-            App.AuthenticatorsViewModel.Authenticators.Remove(App.CurrentAuthenticator);
-            NavigationService.GoBack();
+            MessagePrompt msg = new MessagePrompt()
+            {
+                Title = "删除确认",
+                Message = "警告：此操作不可恢复！删除安全令前请确认已经解绑安全令或备份了安全令序列号和恢复码！",
+                IsCancelVisible = true
+            };
+            msg.Completed += msg_Completed;
+            msg.Show();
+        }
+
+        void msg_Completed(object sender, PopUpEventArgs<string, PopUpResult> e)
+        {
+            if (e.PopUpResult == PopUpResult.Ok)
+            {
+                App.AuthenticatorsViewModel.Authenticators.Remove(App.CurrentAuthenticator);
+                if (NavigationService.CanGoBack)
+                    NavigationService.GoBack();
+                else
+                    NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
+            }
+        }
+
+        private void ShowRestoreCodeButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            RotateTransform rtf = ShowRestoreCodeButton.RenderTransform as RotateTransform;
+            if (rtf == null)
+            {
+                ShowRestoreCodeButton.RenderTransform = rtf = new RotateTransform();
+            }
+            if (rtf.Angle == 0)
+            {
+                SecurityCodes.Visibility = System.Windows.Visibility.Visible;
+                rtf.Angle = 90;
+            }
+            else
+            {
+                SecurityCodes.Visibility = System.Windows.Visibility.Collapsed;
+                rtf.Angle = 0;
+            }
         }
     }
 }

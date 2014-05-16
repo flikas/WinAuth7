@@ -47,7 +47,7 @@
                         </Controls:ListPicker.Header>
                     </Controls:ListPicker>
                     <Controls:PhoneTextBox Grid.Row="2" 
-                                           Hint="输入备注信息" 
+                                           Hint="输入备注名" 
                                            MaxLength="20" 
                                            LengthIndicatorVisible="True" 
                                            Text="{Binding Description,Mode=TwoWay}" />
@@ -70,7 +70,7 @@
                         <Controls:Separator/>
                     </StackPanel>
                     <Controls:PhoneTextBox Grid.Row="1" 
-                                           Hint="输入备注信息" 
+                                           Hint="输入备注名" 
                                            MaxLength="20" 
                                            LengthIndicatorVisible="True" 
                                            Text="{Binding Description,Mode=TwoWay}" />

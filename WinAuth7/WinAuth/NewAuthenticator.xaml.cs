@@ -120,7 +120,7 @@ namespace WinAuth
                 {
                     App.AuthenticatorsViewModel.Authenticators.Add(au);
                     App.CurrentAuthenticator = au;
-                    NavigationService.Navigate(new Uri("/ShowCode.xaml", UriKind.RelativeOrAbsolute));
+                    NavigationService.Navigate(new Uri("/ShowCode.xaml?IsNew=y", UriKind.RelativeOrAbsolute));
                 }
             }
             catch (Exception ex)

@@ -41,7 +41,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Border BorderBrush="Yellow" Width="20" Grid.Row="0" Grid.Column="0" Margin="0,75,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="52">
-                <TextBlock Text="{Binding Serial}" Margin="22.435,-55.731,-473.863,55.731" RenderTransformOrigin="0,0" FontSize="{StaticResource PhoneFontSizeExtraLarge}" UseLayoutRounding="False" d:LayoutRounding="Auto">
+                <TextBlock Text="{Binding Title}" Margin="22.435,-55.731,-473.863,55.731" RenderTransformOrigin="0,0" FontSize="{StaticResource PhoneFontSizeExtraLarge}" UseLayoutRounding="False" d:LayoutRounding="Auto">
                     <TextBlock.RenderTransform>
                         <CompositeTransform Rotation="90" TranslateX="30" />
                     </TextBlock.RenderTransform>
@@ -65,10 +65,20 @@
             </StackPanel>
 
             <StackPanel Grid.Column="1" Grid.Row="3">
-                <TextBlock Text="恢复码" Foreground="{StaticResource PhoneSubtleBrush}"/>
-                <Border Background="{StaticResource PhoneAccentBrush}">
-                    <TextBlock Text="{Binding RestoreCode}" HorizontalAlignment="Center" FontSize="{StaticResource PhoneFontSizeExtraLarge}" />
-                </Border>
+                <StackPanel Orientation="Horizontal" Tap="ShowRestoreCodeButton_Tap" >
+                    <TextBlock Text="序列号与恢复码" Width="160" Foreground="{StaticResource PhoneSubtleBrush}"/>
+                    <Image x:Name="ShowRestoreCodeButton" Height="32" Source="/Assets/AppBar/arrow.png" Stretch="Fill" RenderTransformOrigin="0.5,0.5" />
+                </StackPanel>
+                <StackPanel x:Name="SecurityCodes" Visibility="Collapsed">
+                    <TextBlock Text="序列号" Foreground="{StaticResource PhoneSubtleBrush}"/>
+                    <Border Background="{StaticResource PhoneAccentBrush}">
+                        <TextBlock Text="{Binding Serial}" HorizontalAlignment="Center" FontSize="{StaticResource PhoneFontSizeExtraLarge}" />
+                    </Border>
+                    <TextBlock Text="恢复码" Foreground="{StaticResource PhoneSubtleBrush}"/>
+                    <Border Background="{StaticResource PhoneAccentBrush}">
+                        <TextBlock Text="{Binding RestoreCode}" HorizontalAlignment="Center" FontSize="{StaticResource PhoneFontSizeExtraLarge}" />
+                    </Border>
+                </StackPanel>
                 <Controls:Separator/>
             </StackPanel>
 
